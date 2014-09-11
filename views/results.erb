@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://bionlp.dbcls.jp/textae/lib/css/textae-4.0.6.min.css" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="http://bionlp.dbcls.jp/textae/vender/jquery.jsPlumb-1.5.2-min.js"></script>
+    <script src="http://bionlp.dbcls.jp/textae/lib/textae-4.0.6.min.js"></script>
+</head>
+
+<body>
+
+<% @results.each_solution do |solution| %>
+  <% vars = solution.to_h.keys -%>
+  <% s = solution[vars[0]].to_s %>
+  <% p = s.rindex('/') -%>
+  <% url = s[0 .. p] -%>
+  <% span = s[p + 1 .. -1] -%>
+  <% mbeg, mend = span.split('-') -%>
+  <% (1 ... vars.length).each do |i| -%>
+    <% s = solution[vars[i]].to_s -%>
+    <% p = s.rindex('/') -%>
+    <% span = s[p + 1 .. -1] -%>
+    <% sbeg, send = span.split('-') -%>
+    <% mbeg = sbeg if sbeg < mbeg -%>
+    <% mend = send if send > mend -%>
+  <% end -%>
+  <% ann = url + mbeg + '-' + mend + '/annotations.json?project=' + @project + '&context_size=20'%>
+  <div class="textae-editor" target="<%= ann %>"></div>
+  <hr/>
+<% end %>
+
+</body>
+</html>

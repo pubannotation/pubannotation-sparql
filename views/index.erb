@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" href="css/ontofinder.css" type="text/css" />
+  <title>PubAnnotation SPARQL</title>
+</head>
+<body>
+<h1>PubAnnotation SPARQL</h1>
+
+<form name="sparql" method="get" action="/sparql">
+
+<div>
+Default Graph IRI<br/>
+<input type="text" name="default-graph-uri" size="60" value="" />
+</div>
+
+<div>
+SPARQL<br/>
+<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:595px"></textarea>
+</div>
+
+<input type="submit" name="submit" value="submit" style="height: 50px; width: 600px" />
+
+</form>
+
+</body>
+</html>
