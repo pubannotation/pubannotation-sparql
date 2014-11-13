@@ -30,7 +30,8 @@
     <% mbeg = sbeg if sbeg < mbeg -%>
     <% mend = send if send > mend -%>
   <% end -%>
-  <% ann = url + mbeg + '-' + mend + '/annotations.json?project=' + @project + '&context_size=20'%>
+  <% ann = url + mbeg + '-' + mend + '/annotations.json?context_size=20' %>
+  <% ann += "&project=" + @project unless @project.nil? %>
   <div class="textae-editor" target="<%= ann %>"></div>
   <hr/>
 <% end %>
