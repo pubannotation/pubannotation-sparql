@@ -9,20 +9,91 @@
 <h1>PubAnnotation SPARQL (prototype)</h1>
 
 <form name="sparql" method="get" action="/sparql">
-
 <div>
 Default Graph IRI<br/>
 <input type="text" name="default-graph-uri" size="60" value="" />
 </div>
-
 <div>
 SPARQL<br/>
-<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:595px"></textarea>
+<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:680px"></textarea>
 </div>
-
-<input type="submit" name="submit" value="submit" style="height: 50px; width: 600px" />
-
+<input type="submit" name="submit" value="submit" style="height: 60px; width: 680px" />
 </form>
+<br/><br/>
+
+<fieldset style="display:inline-block">
+<legend>Example 1.</legend>
+<p>Find a <em>JJ</em> which is followed by a <em>IN</em>.</p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
+PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
+
+select ?s1 ?s2 where {
+  # define two constituents denoted by two distinct spans from the same text
+  ?c1 tao:denoted_by ?s1 .
+  ?c2 tao:denoted_by ?s2 .
+  ?s1 tao:part_of ?t .
+  ?s2 tao:part_of ?t .
+  FILTER (?s1 != ?s2)
+
+  # describe the constituents
+  ?c1 a ptb:JJ .
+  ?c2 a ptb:IN .
+  ?c1 tao:followed_by ?c2 .
+} limit 10
+</textarea>
+</fieldset>
+<br/><br/>
+<fieldset style="display:inline-block">
+<legend>Example 2.</legend>
+<p>Find a <em>VP</em> which directly governs a <em>CC</em>.</p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
+PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
+
+select ?s1 ?s2 where {
+  ## define two constituents denoted by two distinct spans from the same text
+  ?c1 tao:denoted_by ?s1 .
+  ?c2 tao:denoted_by ?s2 .
+  ?s1 tao:part_of ?t .
+  ?s2 tao:part_of ?t .
+  FILTER (?s1 != ?s2)
+
+  ## describe the constituents
+  ?c1 a ptb:VP .
+  ?c2 a ptb:CC .
+  ?c1 tao:governs ?c2 .
+} limit 10
+</textarea>
+</fieldset>
+<br/><br/>
+<fieldset style="display:inline-block">
+<legend>Example 3.</legend>
+<p>Find a <em>VP</em> which governs the string <em>activat..</em>.</p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
+PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
+
+select ?s1 ?s2 where {
+  ## define a constituent denoted by a span,
+  ## and another span from the same text
+  ?c1 tao:denoted_by ?s1 .
+  ?s1 tao:part_of ?t .
+  ?s2 tao:part_of ?t .
+  FILTER (?s1 != ?s2)
+
+  ## describe the pattern
+  ?c1 a ptb:VP .
+  # transitive predicate pattern
+  ?c1 tao:governs+ ?s2 .
+  ?s2 tao:has_value ?l2 .
+  FILTER regex(?l2, "^activat")
+  FILTER NOT EXISTS {
+    ?c1 tao:governs+ ?c2 .
+    ?c2 a ptb:VP .
+  }
+} limit 10
+</textarea>
 
 </body>
 </html>
