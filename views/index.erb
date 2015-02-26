@@ -11,7 +11,7 @@
 <form name="sparql" method="get" action="/sparql">
 <div>
 Default Graph IRI<br/>
-<input type="text" name="default-graph-uri" size="60" value="" />
+<input type="text" name="default-graph-uri" size="60" value="http://pubannotation.org/projects/craft" />
 </div>
 <div>
 SPARQL<br/>
@@ -22,78 +22,117 @@ SPARQL<br/>
 <br/><br/>
 
 <fieldset style="display:inline-block">
+<legend>Example: search for the word <i>binds.</i> </legend>
+<p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX penn:<http://example.org/penntag.owl#>
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+select ?s1 where {
+  ?o1 tao:denoted_by ?s1 .
+
+  ?s1 tao:part_of ?t1 ;
+      tao:has_value "binds".
+} limit 10
+</textarea>
+</fieldset>
+
+<fieldset style="display:inline-block">
+<legend>Example: search for the sequence <i>noun preposition</i> where the preposition is <i>of</i>.</legend>
+<p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
+PREFIX penn: <http://pubannotation.org/projects/CRAFT-treebank#>
+select ?s1 ?s2 where {
+  ?o1 a penn:NN ;
+      tao:denoted_by ?s1 .
+  ?o2 a penn:IN ;
+      tao:denoted_by ?s2 .
+
+  ?s1 tao:part_of ?t1 .
+  ?s2 tao:part_of ?t2 ;
+      tao:has_value "of" .
+
+  ?s1 tao:followed_by ?s2.
+  FILTER (?t1 = ?t2)
+} limit 100</textarea>
+</fieldset>
+
+
+
+<fieldset style="display:inline-block">
+<legend>Example: Search for a biological process. (The labels on the various semantic classes of named entities are: <i>Entrez_gene, cell_Instance, cellular_component, chebi, organism,</i> and <i>geneOrGeneProduct.</i>).</legend>
+<p></p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX : <http://http://bionlp-corpora.sourceforge.net/craft/ontology/craft.owl#>
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+select ?s1 where {
+  ?o1 tao:denoted_by ?s1 ;
+      a ?l .
+
+  FILTER regex(?l,"organism")
+} limit 100
+</textarea>
+</fieldset>
+<br/><br/>
+
+<fieldset style="display:inline-block">
+<legend>Example: Search for a noun phrase (NP) that dominates a coordinating conjunction (CC), where the coordinating conjunction is <i>and.</i></legend>
+<p></p>
+<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
+PREFIX penn: <http://pubannotation.org/projects/CRAFT-treebank#>
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+select ?s1 ?s2 where {
+  ?o1 a penn:NP ;
+      tao:denoted_by ?s1 .
+  ?o2 a penn:CC ;
+      tao:denoted_by ?s2 .
+
+  ?s1 tao:part_of ?t1 ;
+      tao:begins_at ?b1 ;
+      tao:ends_at ?e1 .
+  ?s2 tao:part_of ?t2 ;
+      tao:begins_at ?b2 ;
+      tao:ends_at ?e2 ;
+      tao:has_value "and" .
+      FILTER (?b1 < ?b2)
+      FILTER (?e1 > ?e2)
+      FILTER (?t1 = ?t2)
+} limit 100
+
+
+</textarea>
+</fieldset>
+<br/><br/>
+
+<fieldset style="display:inline-block">
 <legend>Example 1.</legend>
-<p>Find a <em>JJ</em> which is followed by a <em>IN</em>.</p>
+<p>Example: Search for organism annotations within a noun phrase. (The labels on the various semantic classes of named entities are: <i>Entrez_gene, cell_Instance, cellular_component, chebi, organism,</i> and <i>geneOrGeneProduct.</i>)</p>
 <textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
-PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
-PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
+PREFIX : <http://http://bionlp-corpora.sourceforge.net/craft/ontology/craft.owl#>
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+PREFIX penn: <http://pubannotation.org/projects/CRAFT-treebank#>
 
 select ?s1 ?s2 where {
-  # define two constituents denoted by two distinct spans from the same text
-  ?c1 tao:denoted_by ?s1 .
-  ?c2 tao:denoted_by ?s2 .
-  ?s1 tao:part_of ?t .
-  ?s2 tao:part_of ?t .
-  FILTER (?s1 != ?s2)
+  ?o1 a penn:NP ;
+      tao:denoted_by ?s1 .
+  ?o2 tao:denoted_by ?s2 ;
+      a ?c .
 
-  # describe the constituents
-  ?c1 a ptb:JJ .
-  ?c2 a ptb:IN .
-  ?c1 tao:followed_by ?c2 .
-} limit 10
+  ?s1 tao:part_of ?t1 ;
+      tao:begins_at ?b1 ;
+      tao:ends_at ?e1 .
+  ?s2 tao:part_of ?t2 ;
+      tao:begins_at ?b2 ;
+      tao:ends_at ?e2 .
+      FILTER (?b1 < ?b2)
+      FILTER (?e1 > ?e2)
+      FILTER (?t1 = ?t2)
+  FILTER regex(?c,"organism")
+} limit 100
+
 </textarea>
 </fieldset>
 <br/><br/>
-<fieldset style="display:inline-block">
-<legend>Example 2.</legend>
-<p>Find a <em>VP</em> which directly governs a <em>CC</em>.</p>
-<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
-PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
-PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
-
-select ?s1 ?s2 where {
-  ## define two constituents denoted by two distinct spans from the same text
-  ?c1 tao:denoted_by ?s1 .
-  ?c2 tao:denoted_by ?s2 .
-  ?s1 tao:part_of ?t .
-  ?s2 tao:part_of ?t .
-  FILTER (?s1 != ?s2)
-
-  ## describe the constituents
-  ?c1 a ptb:VP .
-  ?c2 a ptb:CC .
-  ?c1 tao:governs ?c2 .
-} limit 10
-</textarea>
-</fieldset>
-<br/><br/>
-<fieldset style="display:inline-block">
-<legend>Example 3.</legend>
-<p>Find a <em>VP</em> which governs the string <em>activat..</em>.</p>
-<textarea id="query" name="query" maxlength="1200" style="height:270px; width:650px" readonly="readonly">
-PREFIX tao: <http://pubannotation.org/ontology/tao.owl#>
-PREFIX ptb: <http://pubannotation.org/projects/CRAFT-treebank#>
-
-select ?s1 ?s2 where {
-  ## define a constituent denoted by a span,
-  ## and another span from the same text
-  ?c1 tao:denoted_by ?s1 .
-  ?s1 tao:part_of ?t .
-  ?s2 tao:part_of ?t .
-  FILTER (?s1 != ?s2)
-
-  ## describe the pattern
-  ?c1 a ptb:VP .
-  # transitive predicate pattern
-  ?c1 tao:governs+ ?s2 .
-  ?s2 tao:has_value ?l2 .
-  FILTER regex(?l2, "^activat")
-  FILTER NOT EXISTS {
-    ?c1 tao:governs+ ?c2 .
-    ?c2 a ptb:VP .
-  }
-} limit 10
-</textarea>
 
 </body>
 </html>
