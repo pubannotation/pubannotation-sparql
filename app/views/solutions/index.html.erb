@@ -1,0 +1,23 @@
+<!-- files for TextAE -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="http://textae.pubannotation.org/vender/jquery.jsPlumb-1.5.2-min.js"></script>
+<script src="http://textae.pubannotation.org/lib/textae.min.js"></script>
+<link rel="stylesheet" href="http://textae.pubannotation.org/lib/css/textae.min.css" />
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- -->
+
+<h1>Solution spans rendered in <a href="http://textae.pubannotation.org">TextAE</a></h1>
+<% span_annotations_urls = solutions2span_annotations_urls(@solutions) %>
+<% span_annotations_urls.each do |span_url, span_annotations_url| %>
+  <div style="display:inline-block; width:80%" class="textae-editor" target="<%= span_annotations_url %>"></div>
+  <a class="button" href="<%= span_url %>">>PubAnnotation</a>
+  <hr/>
+<% end %>
+
+<pre>
+<%= @message %>
+</pre>

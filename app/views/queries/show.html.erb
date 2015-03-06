@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= raw @query.title %>
+</p>
+
+<p>
+  <b>Sparql:</b>
+  <pre><%= @query.sparql %></pre>
+</p>
+
+<p>
+  <b>Graph:</b>
+  <%= @query.graph %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @query.comment %>
+</p>
+
+<p>
+  <b>No.:</b>
+  <%= @query.priority %>
+</p>
+
+
+<%= link_to 'Edit', edit_query_path(@query) %> |
+<%= link_to 'Back', queries_path %>

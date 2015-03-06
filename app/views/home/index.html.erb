@@ -1,0 +1,45 @@
+<fieldset style="display:inline-block">
+<legend>Search</legend>
+<form name="sparql" method="get" action="/solutions/index">
+<div>
+Default Graph IRI:<br/>
+<input id="graph" type="text" name="default-graph-uri" size="60" value="http://pubannotation.org/projects/craft" />
+</div>
+<br/>
+<div>
+SPARQL:
+<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:680px">
+PREFIX penn:<http://example.org/penntag.owl#>
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+SELECT ?s1 WHERE {
+  ?o1 tao:denoted_by ?s1 .
+  ?s1 tao:has_value "binds" .
+} LIMIT 10
+</textarea>
+</div>
+<input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
+</form>
+</fieldset>
+
+<!-- codemirror scripts -->
+<script>
+var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
+	lineNumbers: true,
+	mode: "sparql"
+});
+
+function setquery(query) {
+	document.getElementById("graph").value = query["graph"];
+	sparqlMirror.getDoc().setValue(query["sparql"]);
+
+	// sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
+	//     lineNumbers: true,
+	//     mode: "sparql"
+	// });
+}
+</script>
+
+<div class="example-queries">
+<h2>Example queries <span class="meta">(click to see SPARQL query)</span></h2>
+<%= render :partial => "queries/list" %>
+</div>

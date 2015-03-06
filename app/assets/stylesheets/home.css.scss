@@ -1,0 +1,17 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.CodeMirror {
+  display: block;
+  border-style: solid;
+  border-color: #002266;
+  border-width: 1px;
+  width: 600px;
+}
+
+.example-queries {
+	display: inline-block;
+	width: 600px;
+	vertical-align: top;
+}

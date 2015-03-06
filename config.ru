@@ -1,3 +1,4 @@
-require File.expand_path '../pubannotation-sparql', __FILE__
+# This file is used by Rack-based servers to start the application.
 
-run PubAnnotationSPARQL
+require ::File.expand_path('../config/environment',  __FILE__)
+run PubannotationSparql::Application

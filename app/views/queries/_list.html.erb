@@ -1,0 +1,13 @@
+<table class="query-list">
+  <tr>
+    <th>No.</th>
+    <th>Title</th>
+  </tr>
+
+<% @queries.each do |query| %>
+  <tr>
+    <td><%= query.priority %></td>
+    <td><a onclick="setquery(<%= query.to_json %>)"><%= raw query.title %></a></td>
+  </tr>
+<% end %>
+</table>

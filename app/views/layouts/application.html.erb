@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pubannotation SPARQL Interface</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="header" class="frame">
+	<h1 class="title"><a href="http://pubannotation.org">PubAnnotation</a> <a href="http://sparql.pubannotation.org">SPARQL Interface</h1>
+</div>
+
+<div id="notice">
+	<%= notice.html_safe if notice -%>
+</div>
+<div id="altert">
+	<%= alert if alert %>
+</div>
+
+<div id="main">
+	<%= yield %>
+</div>
+
+</body>
+</html>
