@@ -9,6 +9,12 @@ Default Graph IRI:<br/>
 <div>
 SPARQL:
 <textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:680px">
+PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
+SELECT ?s1 ?s2 where {
+	?s1 tao:followed_by ?s2 .
+	?s1 tao:has_value "effect" .
+	?s2 tao:has_value "of" .
+} LIMIT 10
 </textarea>
 </div>
 <input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />

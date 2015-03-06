@@ -20,11 +20,8 @@ body {
 }
 
 .frame {
-  position:relative;
   margin: 0;
-  height: 50px;
   padding: 10px;
-  padding-top:30px;
   vertical-align: middle;
   background-color: #002266;
   color: #aaaaaa;
@@ -109,11 +106,23 @@ body {
 
 .title {
   margin: 0;
+  margin-top: 10pt;
+  margin-bottom: 2pt;
   padding: 0;
   font-size: xx-large;
   font-weight: bold;
-  vertical-align: middle;
 }
+
+.subtitle {
+  margin: 0;
+  margin-top: 2pt;
+  margin-bottom: 10pt;
+  padding: 0;
+  font-size: large;
+  font-weight: bold;
+  color: red;
+}
+
 
 h1 {
   width:450px;
