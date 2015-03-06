@@ -11,6 +11,7 @@
  *= require_self
  *= require_tree .
  */
+
 body {
   margin: 0;
   padding: 0;
@@ -21,15 +22,32 @@ body {
 .frame {
   position:relative;
   margin: 0;
+  height: 50px;
   padding: 10px;
+  padding-top:30px;
+  vertical-align: middle;
   background-color: #002266;
   color: #aaaaaa;
 }
 
 .frame a {
-  color: #aaaaff;
+  color: #bbbbff;
+  background-color: #002266;
   text-decoration: none;
 }
+
+.frame a:visited {
+  color: #bbbbff;
+  background-color: #002266;
+  text-decoration: none;
+}
+
+.frame a:hover {
+  color: #ddddff;
+  background-color: #002266;
+  text-decoration: none;
+}
+
 
 #notice {
   color: #ff0000;
@@ -89,6 +107,14 @@ body {
   padding: 0.1em 0;
 }
 
+.title {
+  margin: 0;
+  padding: 0;
+  font-size: xx-large;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
 h1 {
   width:450px;
   border:solid #002266;
@@ -96,12 +122,6 @@ h1 {
   padding-left: 10px;
   margin-top: 20px;
   font-size: large;
-}
-
-h1.title {
-  width:700px;
-  border-width: 0px 0px 2px 10px;
-  font-size: xx-large; 
 }
 
 h2 {
