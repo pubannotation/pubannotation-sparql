@@ -46,24 +46,8 @@ body {
 }
 
 
-#notice {
+#message {
   color: #ff0000;
-}
-
-.notice {
-  ul {
-    -webkit-margin-before: 0em;
-    -webkit-margin-after: 0em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 20px;
-    -webkit-padding-start: 0px;
-
-    li {
-      margin: 0px;
-      padding: 0px;
-    }
-  }
 }
 
 #main {
@@ -81,27 +65,9 @@ body {
   text-decoration: none;
 }
 
-.pname {
-  font-style: italic;
-}
-
 .credit {
   font-style:italic;
   text-align:center;
-}
-
-.capitalize{
-  text-transform:capitalize;
-}
-
-.capitalize_first:first-letter{
-  text-transform:capitalize;
-}
-
-.highlight{
-  background-color: lighten(#ccc, 13%);
-  font-weight: bold;
-  padding: 0.1em 0;
 }
 
 .title {

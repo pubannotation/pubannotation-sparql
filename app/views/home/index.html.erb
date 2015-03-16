@@ -1,6 +1,6 @@
 <fieldset style="display:inline-block">
 <legend>Search</legend>
-<form name="sparql" method="get" action="/solutions/index">
+<form id="queryform" name="sparql" method="get" action="/solutions/index">
 <div>
 Default Graph IRI:<br/>
 <input id="graph" type="text" name="default-graph-uri" size="60" />
@@ -9,16 +9,20 @@ Default Graph IRI:<br/>
 <div>
 SPARQL:
 <textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:680px">
-PREFIX tao:<http://pubannotation.org/ontology/tao.owl#>
-SELECT ?s1 ?s2 where {
-	?s1 tao:followed_by ?s2 .
-	?s1 tao:has_value "effect" .
-	?s2 tao:has_value "of" .
-} LIMIT 10
+<%= default_query %>
 </textarea>
+</div>
+<div style="align:center; margin:5px">
+Show the results in [
+<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='http://rdf.pubannotation.org/sparql';"/> Binding
+|
+<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='/solutions/index';" checked="checked"/> TextAE
+]
 </div>
 <input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
 </form>
+<div id="comment">
+</div>
 </fieldset>
 
 <!-- codemirror scripts -->
@@ -31,6 +35,7 @@ var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
 function setquery(query) {
 	document.getElementById("graph").value = query["graph"];
 	sparqlMirror.getDoc().setValue(query["sparql"]);
+	document.getElementById("comment").innerHTML = query["comment"];
 
 	// sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
 	//     lineNumbers: true,

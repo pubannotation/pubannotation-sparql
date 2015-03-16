@@ -19,8 +19,9 @@ class SolutionsController < ApplicationController
 	      format.json {render json: @solutions}
 	    end
 		rescue => e
+			message = e.message.split(%r|\n\n|)[0]
 	    respond_to do |format|
-	      format.html {redirect_to home_index_path, notice: e.message}
+	      format.html {redirect_to home_index_path(default_graph_uri: default_graph_uri, query: query), notice: message}
 	      format.json {render json: @solutions}
 	    end
 		end
