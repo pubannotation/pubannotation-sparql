@@ -12,12 +12,16 @@
 
 <h1>Solution spans rendered in <a href="http://textae.pubannotation.org">TextAE</a></h1>
 <% span_annotations_urls = solutions2span_annotations_urls(@solutions) %>
-<% span_annotations_urls.each do |span_url, span_annotations_url| %>
-  <div style="display:inline-block; width:80%" class="textae-editor" target="<%= span_annotations_url %>"></div>
-  <a class="button" href="<%= span_url %>">>PubAnnotation</a>
-  <hr/>
+<% if span_annotations_urls.empty? %>
+	<div class="message">
+	This view renders the maximum spans involved in the solutions.<br/>
+	However, the solutions to the input query do not involve a span specification.<br/>
+	Go back and try the <i>binding view</i>.
+	</div>
+<% else %>
+	<% span_annotations_urls.each do |span_url, span_annotations_url| %>
+	  <div style="display:inline-block; width:80%" class="textae-editor" target="<%= span_annotations_url %>"></div>
+	  <a class="button" href="<%= span_url %>">>PubAnnotation</a>
+	  <hr/>
+	<% end %>
 <% end %>
-
-<pre>
-<%= @message %>
-</pre>
