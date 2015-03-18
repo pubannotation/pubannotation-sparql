@@ -3,6 +3,6 @@ class HomeController < ApplicationController
 		@default_graph_uri = params["default-graph-uri"]
 		@query						 = params["query"]
 
-		@queries = Query.all
+		@queries = Query.order(:priority).all
   end
 end
