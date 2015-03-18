@@ -45,6 +45,9 @@ body {
   text-decoration: none;
 }
 
+#footer {
+  margin-top: 20px;
+}
 
 .message {
   color: #ff0000;
@@ -81,7 +84,7 @@ body {
 
 .subtitle {
   margin: 0;
-  margin-top: 2pt;
+  margin-top: 4pt;
   margin-bottom: 10pt;
   padding: 0;
   font-size: large;

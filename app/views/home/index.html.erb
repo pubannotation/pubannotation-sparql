@@ -12,7 +12,7 @@ SPARQL:
 <%= default_query %>
 </textarea>
 </div>
-<div style="align:center; margin:5px">
+<div style="text-align:center; margin:5px">
 Show the results in [
 <input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='http://rdf.pubannotation.org/sparql';" checked="checked"/> Binding
 |
@@ -22,6 +22,8 @@ Show the results in [
 <input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
 </form>
 <div id="comment">
+<h1>Tip</h1>
+Clicking on an example query will show the SPARQL query and an explanation.
 </div>
 </fieldset>
 
@@ -35,6 +37,7 @@ var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
 function setquery(query) {
 	document.getElementById("graph").value = query["graph"];
 	sparqlMirror.getDoc().setValue(query["sparql"]);
+	if (query["comment"] == null || query["comment"] == "") {query["comment"] = "No explanation."};
 	document.getElementById("comment").innerHTML = query["comment"];
 
 	// sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {

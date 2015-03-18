@@ -17,7 +17,27 @@
 }
 
 #comment {
-	margin: 5px;
-	width: 600px;
+	border-style: solid;
+	border-color: #6688cc;
+	border-width: 1px;
+	margin: 5px 0;
+	padding: 4px;
+	width: 590px;
 	background-color: #ffc;
+	box-shadow: 2px 2px 2px;
+
+}
+
+#comment h1 {
+	border-style: none;
+	margin: 5px 0;
+	padding: 0;
+	font-size: medium;
+}
+
+#comment h2 {
+	border-style: none;
+	margin: 5px 0;
+	padding: 0;
+	font-size: small;
 }
