@@ -15,4 +15,18 @@ HERE
 
 		end
 	end
+
+	def default_comment
+		if @comment.present?
+			@comment
+		else
+
+<<HERE
+<h1>Tip</h1>
+Clicking on an example query will show the SPARQL query and an explanation.
+HERE
+
+		end
+	end
+
 end

@@ -22,8 +22,7 @@ Show the results in [
 <input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
 </form>
 <div id="comment">
-<h1>Tip</h1>
-Clicking on an example query will show the SPARQL query and an explanation.
+<%= default_comment %>
 </div>
 </fieldset>
 
@@ -39,11 +38,6 @@ function setquery(query) {
 	sparqlMirror.getDoc().setValue(query["sparql"]);
 	if (query["comment"] == null || query["comment"] == "") {query["comment"] = "No explanation."};
 	document.getElementById("comment").innerHTML = query["comment"];
-
-	// sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
-	//     lineNumbers: true,
-	//     mode: "sparql"
-	// });
 }
 </script>
 
