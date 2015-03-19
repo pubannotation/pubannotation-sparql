@@ -181,3 +181,11 @@ h3 {
     position:relative;
     top:1px;
 }
+
+table th, td {
+  padding:4px;
+}
+
+td.number {
+  text-align: right;
+}
