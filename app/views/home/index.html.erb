@@ -14,9 +14,9 @@ SPARQL:
 </div>
 <div style="text-align:center; margin:5px">
 Show the results in [
-<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='http://rdf.pubannotation.org/sparql';" checked="checked"/> Binding
+<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='http://rdf.pubannotation.org/sparql';" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Binding</span>
 |
-<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='/solutions/index';"/> TextAE
+<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='/solutions/index';"/> <span title="It shows the minimal spans containing the solutions.">TextAE</span>
 ]
 </div>
 <input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
@@ -42,6 +42,6 @@ function setquery(query) {
 </script>
 
 <div class="example-queries">
-<h2>Example queries <span class="meta">(click to see SPARQL query)</span></h2>
+<h2>Example queries</span></h2>
 <%= render :partial => "queries/list" %>
 </div>
