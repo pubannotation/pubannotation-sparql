@@ -8,8 +8,11 @@
 </head>
 <body>
 <div id="header" class="frame">
-	<div class="title"><a href="http://pubannotation.org">PubAnnotation</a> <a href="http://sparql.pubannotation.org">SPARQL Interface</a></div>
-	<div class="subtitle">a prototype system</div>
+	<div class="title">
+		<a href="http://pubannotation.org">PubAnnotation</a>
+		<%= link_to 'SPARQL Interface', home_index_path %>
+	</div>
+	<div class="subtitle"><%= PubannotationSparql::Application.config.subtitle %></div>
 </div>
 
 <div class="message">
@@ -28,7 +31,7 @@
 <li>Note that <i>PubAnnotation SPARQL Interface</i> is currently a prototype implementation for proof-of-concept, and should be treated as such.
 <li>Features are subject to change without notice or obligation until it is turned into a Beta version.
 <li>Your comments (problem reporting, suggestions, criticism, encouragements, ...) are very very welcome.
-<li>Contact: admin (at) pubannotation.org.
+<li>Contact: <%= mail_to PubannotationSparql::Application.config.contact %>
 </ul>
 </div>
 

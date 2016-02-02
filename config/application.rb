@@ -58,5 +58,10 @@ module PubannotationSparql
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # application-specific configuration
+    config.default_ep_url = "http://rdf.pubannotation.org/sparql"
+    config.subtitle = "a Prototype Service"
+    config.contact = "admin@pubannotation.org"
   end
 end

@@ -10,11 +10,40 @@
   width: 600px;
 }
 
-.example-queries {
+.panel {
 	display: inline-block;
-	width: 600px;
 	vertical-align: top;
+	width: 600px;
 }
+
+/* Responsive Stuff */
+/* @media screen and (max-width: 568px) { */
+@media screen and (max-width: 1260px) {
+	.panel {
+		width: 45%;
+	}
+}
+
+@media screen and (max-width: 1180px) {
+	.panel {
+		width: 40%;
+	}
+}
+
+@media screen and (max-width: 1065px) {
+	.panel {
+		width: 34%;
+	}
+}
+
+@media screen and (max-width: 990px) {
+	.panel {
+		width: 625px;
+		display: block;
+	}
+}
+
+
 
 #comment {
 	border-style: solid;

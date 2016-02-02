@@ -1,0 +1,63 @@
+.frame {
+  margin: 0;
+  padding: 10px;
+  vertical-align: middle;
+  background-color: #002266;
+  color: #aaaaaa;
+}
+
+.frame a {
+  color: #bbbbff;
+  background-color: #002266;
+  text-decoration: none;
+}
+
+.frame a:visited {
+  color: #bbbbff;
+  background-color: #002266;
+  text-decoration: none;
+}
+
+.frame a:hover {
+  color: #ddddff;
+  background-color: #002266;
+  text-decoration: none;
+}
+
+#footer {
+  margin-top: 20px;
+}
+
+.message {
+  color: #ff0000;
+}
+
+#main {
+  margin:0px;
+  padding:5px;
+}
+
+.credit {
+  font-style:italic;
+  text-align:center;
+}
+
+.title {
+  margin: 0;
+  margin-top: 10pt;
+  margin-bottom: 2pt;
+  padding: 0;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin: 0;
+  margin-top: 6pt;
+  margin-bottom: 10pt;
+  padding: 0;
+  font-size: large;
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}

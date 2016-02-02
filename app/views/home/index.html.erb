@@ -1,47 +1,53 @@
 <fieldset style="display:inline-block">
-<legend>Search</legend>
-<form id="queryform" name="sparql" method="get" action="http://rdf.pubannotation.org/sparql">
-<div>
-Default Graph IRI:<br/>
-<input id="graph" type="text" name="default-graph-uri" size="60" />
-</div>
-<br/>
-<div>
-SPARQL:
-<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:680px">
-<%= default_query %>
-</textarea>
-</div>
-<div style="text-align:center; margin:5px">
-Show the results in [
-<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='http://rdf.pubannotation.org/sparql';" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Binding</span>
-|
-<input type="radio" name="actionsel" onclick="document.getElementById('queryform').action='/solutions/index';"/> <span title="It shows the minimal spans containing the solutions.">TextAE</span>
-]
-</div>
-<input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
-</form>
-<div id="comment">
-<%= default_comment.html_safe %>
-</div>
+	<legend>Search</legend>
+	<form id="queryform" name="sparql" method="get" action="<%= @ep_url %>">
+		<div>
+			Default Graph IRI:<br/>
+			<input id="graph" type="text" name="default-graph-uri" size="60" />
+		</div>
+		<br/>
+		<div>
+			SPARQL:
+			<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:500px"><%= default_query -%></textarea>
+		</div>
+		<div style="text-align:center; margin:5px">
+			Show the results in [
+				<input type="radio" name="actionsel" onclick="set_path_to_ep()" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Binding</span>
+				|
+				<input type="radio" name="actionsel" onclick="set_path_to_textae()"/> <span title="It shows the minimal spans containing the solutions.">TextAE</span>
+			]
+		</div>
+		<input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
+	</form>
+	<div id="comment">
+		<%= default_comment.html_safe %>
+	</div>
 </fieldset>
 
 <!-- codemirror scripts -->
 <script>
-var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
-	lineNumbers: true,
-	mode: "sparql"
-});
+	var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
+		lineNumbers: true,
+		mode: "sparql"
+	});
 
-function setquery(query) {
-	document.getElementById("graph").value = query["graph"];
-	sparqlMirror.getDoc().setValue(query["sparql"]);
-	if (query["comment"] == null || query["comment"] == "") {query["comment"] = "No explanation."};
-	document.getElementById("comment").innerHTML = query["comment"];
-}
+	function set_path_to_ep() {
+		document.getElementById('queryform').action = "<%= @ep_url %>"
+	}
+
+	function set_path_to_textae() {
+		document.getElementById('queryform').action = "/solutions/index?ep=<%= @ep_url %>"
+	}
+
+	function setquery(query) {
+		document.getElementById("graph").value = query["graph"];
+		sparqlMirror.getDoc().setValue(query["sparql"]);
+		if (query["comment"] == null || query["comment"] == "") {query["comment"] = "No explanation."};
+		document.getElementById("comment").innerHTML = query["comment"];
+	}
 </script>
 
-<div class="example-queries">
-<h2>Example queries</span></h2>
-<%= render :partial => "queries/list" %>
+<div class="panel">
+	<h2>Example queries</h2>
+	<%= render :partial => "queries/list" %>
 </div>

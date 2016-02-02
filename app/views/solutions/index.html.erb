@@ -11,7 +11,7 @@
 <!-- -->
 
 <h1>Solution spans rendered in <a href="http://textae.pubannotation.org">TextAE</a></h1>
-<% span_annotations_urls = solutions2span_annotations_urls(@solutions) %>
+<% span_annotations_urls = solutions2span_annotations_urls(@solutions, nil, @context_size) %>
 <% if span_annotations_urls.empty? %>
 	<div class="message">
 	This view renders the maximum spans involved in the solutions.<br/>
@@ -20,7 +20,7 @@
 	</div>
 <% else %>
 	<% span_annotations_urls.each do |span_url, span_annotations_url| %>
-	  <div style="display:inline-block; width:80%" class="textae-editor" target="<%= span_annotations_url %>"></div>
+	  <div style="display:inline-block; width:80%" class="textae-editor" status_bar='on' target="<%= span_annotations_url %>"></div>
 	  <a class="button" href="<%= span_url %>">>PubAnnotation</a>
 	  <hr/>
 	<% end %>

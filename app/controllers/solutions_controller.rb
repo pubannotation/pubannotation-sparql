@@ -1,9 +1,11 @@
 class SolutionsController < ApplicationController
   def index
+  	@ep_url						= params["ep"] || PubannotationSparql::Application.config.default_ep_url
 		default_graph_uri = params["default-graph-uri"]
 		query						  = params["query"]
 
-    endpoint = SPARQL::Client.new("http://rdf.pubannotation.org/sparql")
+    # endpoint = SPARQL::Client.new("http://rdf.pubannotation.org/sparql")
+    endpoint = SPARQL::Client.new(@ep_url)
 
     begin
 			@solutions = if default_graph_uri.nil? || default_graph_uri.empty?
@@ -13,6 +15,8 @@ class SolutionsController < ApplicationController
 				@project = default_graph_uri[p + 1 .. -1]
 				endpoint.query(query, "default-graph-uri" => default_graph_uri)
 			end
+
+			@context_size = params[:context_size].present? ? params[:context_size].to_i : 0
 
 	    respond_to do |format|
 	      format.html {render 'index'}
