@@ -15,6 +15,6 @@ class HomeController < ApplicationController
 		@graphs = PubannotationSparql::Application.config.graphs
 		@prefixes = PubannotationSparql::Application.config.prefixes
 		@queries = Query.order(:priority).all
-		@path_prefix = PubannotationSparql::Application.config.default_ep_url || ''
+		@path_prefix = PubannotationSparql::Application.config.relative_url_root || ''
   end
 end
