@@ -1,10 +1,9 @@
 class SolutionsController < ApplicationController
   def index
-  	@ep_url						= params["ep"] || PubannotationSparql::Application.config.default_ep_url
+  	@ep_url						= PubannotationSparql::Application.config.default_ep_url
 		default_graph_uri = params["default-graph-uri"]
 		query						  = params["query"]
 
-    # endpoint = SPARQL::Client.new("http://rdf.pubannotation.org/sparql")
     endpoint = SPARQL::Client.new(@ep_url)
 
     begin
