@@ -7,7 +7,6 @@
   border-style: solid;
   border-color: #002266;
   border-width: 1px;
-  width: 600px;
 }
 
 .panel {
@@ -38,13 +37,14 @@
 }
 
 @media screen and (max-width: 990px) {
+	#query {
+		height: 150px;
+	}
 	.panel {
 		width: 625px;
 		display: block;
 	}
 }
-
-
 
 #comment {
 	border-style: solid;

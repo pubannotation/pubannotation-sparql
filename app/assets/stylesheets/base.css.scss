@@ -106,9 +106,38 @@ h3 {
     top:1px;
 }
 
-table th, td {
-  padding:4px;
+table {
+  border-collapse: collapse;
 }
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table th, td {
+  padding: 4px;
+}
+
+table, th, td {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #8888dd;
+}
+
+th {
+  background-color: #ccccff;
+}
+
+table.plain {
+  border-style: none;
+}
+
+table.plain th, td {
+  border-style: none;
+  background-color: #ffffff;
+}
+
 
 td.number {
   text-align: right;

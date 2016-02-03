@@ -8,14 +8,31 @@
 		<br/>
 		<div>
 			SPARQL:
-			<textarea id="query" name="query" maxlength="1200" required="required" style="height:200px; width:500px"><%= default_query -%></textarea>
+			<textarea id="query" name="query" maxlength="1200" required="required"><%= default_query -%></textarea>
 		</div>
-		<div style="text-align:center; margin:5px">
-			Show the results in [
-				<input type="radio" name="actionsel" onclick="set_path_to_ep()" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Binding</span>
-				|
-				<input type="radio" name="actionsel" onclick="set_path_to_textae()"/> <span title="It shows the minimal spans containing the solutions.">TextAE</span>
-			]
+		<div style="margin:5px">
+			<table class="center">
+				<tr>
+					<th>Show results by</th>
+					<td>
+						<table class="plain">
+							<tr>
+								<td>
+									<input type="radio" name="actionsel" onclick="set_path_to_ep()" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Virtuoso</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="radio" name="actionsel" onclick="set_path_to_textae()"/><span title="It shows the minimal spans containing the solutions.">TextAE</span>
+								</td>
+								<td>
+									<label>with context size</label>:<input type="text" name="context_size" size="3" value="20" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
 	</form>
@@ -36,7 +53,7 @@
 	}
 
 	function set_path_to_textae() {
-		document.getElementById('queryform').action = "/solutions/index?ep=<%= @ep_url %>"
+		document.getElementById('queryform').action = "<%= @path_prefix %>/solutions/index?ep=<%= @ep_url %>"
 	}
 
 	function setquery(query) {
@@ -50,7 +67,7 @@
 <fieldset class="panel">
 	<legend>Prefixes</legend>
 <pre>
-<%= @prefixes.map{|p| "PREFIX #{p[:prefix]}:#{p[:uri]}"}.join("\n") %>
+<%= @prefixes.map{|p| "PREFIX #{p[:prefix]}:<#{p[:uri]}>"}.join("\n") %>
 </pre>
 </fieldset>
 
