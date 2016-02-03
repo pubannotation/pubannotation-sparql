@@ -63,5 +63,12 @@ module PubannotationSparql
     config.default_ep_url = "http://rdf.pubannotation.org/sparql"
     config.subtitle = "a Prototype Service"
     config.contact = "admin@pubannotation.org"
+    config.graphs = [
+        "http://pubannotation.org/docs/"
+    ]
+    config.prefixes = [
+        {prefix:"tao", uri:"http://pubannotation.org/ontology/tao.owl#"},
+        {prefix:"prj", uri:"http://pubannotation.org/projects/"},
+    ]
   end
 end

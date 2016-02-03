@@ -1,4 +1,4 @@
-<fieldset style="display:inline-block">
+<fieldset style="float:left">
 	<legend>Search</legend>
 	<form id="queryform" name="sparql" method="get" action="<%= @ep_url %>">
 		<div>
@@ -47,7 +47,23 @@
 	}
 </script>
 
-<div class="panel">
-	<h2>Example queries</h2>
+<fieldset class="panel">
+	<legend>Prefixes</legend>
+<pre>
+<%= @prefixes.map{|p| "PREFIX #{p[:prefix]}:#{p[:uri]}"}.join("\n") %>
+</pre>
+</fieldset>
+
+<fieldset class="panel">
+	<legend>Graphs</legend>
+<pre>
+<%= @graphs.join("\n") %>
+</pre>
+</fieldset>
+
+<fieldset class="panel">
+	<legend>Example queries</legend>
 	<%= render :partial => "queries/list" %>
-</div>
+</fieldset>
+
+<div style="clear:both"/>

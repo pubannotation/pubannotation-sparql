@@ -12,6 +12,8 @@ class HomeController < ApplicationController
 			@comment           = default_query.comment
 		end
 
+		@graphs = PubannotationSparql::Application.config.graphs
+		@prefixes = PubannotationSparql::Application.config.prefixes
 		@queries = Query.order(:priority).all
   end
 end
