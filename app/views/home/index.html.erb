@@ -26,7 +26,8 @@
 									<input type="radio" name="actionsel" onclick="set_path_to_textae()"/><span title="It shows the minimal spans containing the solutions.">TextAE</span>
 								</td>
 								<td>
-									<label>with context size</label>:<input type="text" name="context_size" size="3" value="20" />
+									<label>with context size</label>:<input type="text" name="context_size" size="3" value="20" /><br/>
+									<label>for edition</label>:<input type="checkbox" name="mode" value="edit" />
 								</td>
 							</tr>
 						</table>
@@ -74,7 +75,7 @@
 <fieldset class="panel">
 	<legend>Graphs</legend>
 <pre>
-<%= @graphs.join("\n") %>
+<%= @graphs.map{|g| '<' + g + '>'}.join("\n") %>
 </pre>
 </fieldset>
 

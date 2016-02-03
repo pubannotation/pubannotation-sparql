@@ -1,11 +1,9 @@
-
 body {
   margin: 0;
   padding: 0;
   font-family: Meiryo, "メイリオ", "MS PGothic","MS Pゴシック", osaka, Verdana, Geneva, sans-serif;
   font-size: small;
 }
-
 
 .meta {
   color: #888888;
@@ -130,11 +128,13 @@ th {
 }
 
 table.plain {
-  border-style: none;
+  border-style: solid;
+  vertical-align: top;
 }
 
 table.plain th, td {
-  border-style: none;
+  border-style: solid;
+  vertical-align: top;
   background-color: #ffffff;
 }
 
