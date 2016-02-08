@@ -15,6 +15,7 @@ class SolutionsController < ApplicationController
 				endpoint.query(query, "default-graph-uri" => default_graph_uri)
 			end
 
+			@projects = PubannotationSparql::Application.config.projects_to_show
 			@context_size = params[:context_size].present? ? params[:context_size].to_i : 0
 
 	    respond_to do |format|

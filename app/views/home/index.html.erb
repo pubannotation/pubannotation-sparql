@@ -1,4 +1,4 @@
-<fieldset style="float:left">
+<fieldset class="main-panel">
 	<legend>Search</legend>
 	<form id="queryform" name="sparql" method="get" action="<%= @ep_url %>">
 		<div>
@@ -35,7 +35,7 @@
 				</tr>
 			</table>
 		</div>
-		<input type="submit" name="submit" value="submit" style="height: 30px; width: 600px" />
+		<input type="submit" name="submit" value="submit" style="height: 30px; width: 100%" />
 	</form>
 	<div id="comment">
 		<%= default_comment.html_safe %>

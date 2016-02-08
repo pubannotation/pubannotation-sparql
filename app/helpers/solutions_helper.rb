@@ -14,7 +14,7 @@ module SolutionsHelper
 				span_annotations_url = span_url + '/annotations.json'
 			  options = []
 			  options << "context_size=#{context_size}" if context_size > 0
-			  options << 'project=[' + projects.join(',') + ']' if projects.present?
+			  options << 'project=' + projects.join(',') if projects.present?
 			  span_annotations_url += '?' + options.join('&') if options.present?
 			  span_annotations_urls << [span_url, span_annotations_url]
 			end

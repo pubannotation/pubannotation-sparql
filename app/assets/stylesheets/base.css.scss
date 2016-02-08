@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: Meiryo, "メイリオ", "MS PGothic","MS Pゴシック", osaka, Verdana, Geneva, sans-serif;
   font-size: small;
+  line-height: 1.2em;
 }
 
 .meta {
@@ -16,16 +17,14 @@ body {
 }
 
 h1 {
-  width:450px;
   border:solid #002266;
   border-width: 0px 0px 1px 5px;
   padding-left: 10px;
-  margin-top: 20px;
+  margin-top: 20px 0 5px 0;
   font-size: large;
 }
 
 h2 {
-  width:450px;
   margin-top:25px;
   margin-bottom:10px;
   padding:0px 2px 1px 4px;
@@ -138,7 +137,13 @@ table.plain th, td {
   background-color: #ffffff;
 }
 
-
 td.number {
   text-align: right;
+}
+
+pre {
+  margin: 0;
+  background-color: #eee;
+  font-size: 11px;
+  white-space: pre-wrap;
 }
