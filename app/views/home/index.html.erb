@@ -11,23 +11,43 @@
 			<textarea id="query" name="query" maxlength="1200" required="required"><%= default_query -%></textarea>
 		</div>
 		<div style="margin:5px">
-			<table class="center">
+			<table class="center options">
 				<tr>
 					<th>Show results by</th>
 					<td>
 						<table class="plain">
 							<tr>
 								<td>
-									<input type="radio" name="actionsel" onclick="set_path_to_ep()" checked="checked"/><span title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Virtuoso</span>
+									<input type="radio" name="actionsel" id="sel-ep" onclick="set_path_to_ep()" checked="checked"/><label for="sel-ep" title="It shows the list of bindings to the variables specified in the 'SELECT' clause">Virtuoso</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<input type="radio" name="actionsel" onclick="set_path_to_textae()"/><span title="It shows the minimal spans containing the solutions.">TextAE</span>
-								</td>
-								<td>
-									<label>with context size</label>:<input type="text" name="context_size" size="3" value="20" /><br/>
-									<label>for edition</label>:<input type="checkbox" name="mode" value="edit" />
+									<input type="radio" name="actionsel" id="sel-textae" onclick="set_path_to_textae()"/>
+									<label for="sel-textae" title="It shows the minimal spans containing the solutions.">TextAE</label>
+									<ul>
+										<li><label for="sel-textae">context size: <input type="text" name="context_size" size="3" value="20" /></label></li>
+										<ul>
+											<li>
+												<%= check_box_tag("with annotation") %>
+												<%= label_tag("with annotation") %>
+											</li>
+										</ul>
+										<li><label for="sel-textae">annotations to show</label></li>
+										<ul>
+											<% @projects.each_with_index do |p, i| %>
+												<li>
+													<% if i == 0 %>
+														<%= check_box_tag("project-" + p, 1, true, disabled: true) %>
+														<%= check_box_tag("project-" + p, 1, true, hidden: true) %>
+													<% else %>
+														<%= check_box_tag("project-" + p) %>
+													<% end %>
+													<%= label_tag("project-" + p) %>
+												</li>
+											<% end %>
+										</ul>
+									</ul>
 								</td>
 							</tr>
 						</table>

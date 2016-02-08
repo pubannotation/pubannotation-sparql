@@ -1,6 +1,6 @@
 module SolutionsHelper
 
-	def solutions2span_annotations_urls (solutions, projects = nil, context_size = 0)
+	def solutions2span_annotations_urls (solutions, projects = nil, extension_size = 0, context_size = 0)
 		projects ||= []
 		projects = [projects] unless projects.respond_to?(:each)
 		span_annotations_urls = []
@@ -8,8 +8,8 @@ module SolutionsHelper
 			span_urls = solution.to_h.values.select{|v| span?(v)}.map{|v| v.to_s}
 			unless span_urls.empty?
 				ranges = span_urls.map{|u| span_begin_end(u)}
-				mbeg = ranges.map{|r| r[0]}.min
-				mend = ranges.map{|r| r[1]}.max
+				mbeg = ranges.map{|r| r[0]}.min - extension_size
+				mend = ranges.map{|r| r[1]}.max + extension_size
 				span_url = "#{span_prefix(span_urls[0])}#{mbeg}-#{mend}"
 				span_annotations_url = span_url + '/annotations.json'
 			  options = []

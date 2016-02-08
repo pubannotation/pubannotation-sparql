@@ -15,8 +15,10 @@ class SolutionsController < ApplicationController
 				endpoint.query(query, "default-graph-uri" => default_graph_uri)
 			end
 
-			@projects = PubannotationSparql::Application.config.projects_to_show
+			@projects = params.keys.select{|p| p.start_with?("project-")}.map{|p| p[8..-1]}
 			@context_size = params[:context_size].present? ? params[:context_size].to_i : 0
+			@extension_size = params["with annotation"].present? ?	@context_size : 0
+			@context_size = 0 if @extension_size > 0
 
 	    respond_to do |format|
 	      format.html {render 'index'}
@@ -24,10 +26,10 @@ class SolutionsController < ApplicationController
 	    end
 		rescue => e
 			message = e.message.split(%r|\n\n|)[0]
-	    respond_to do |format|
-	      format.html {redirect_to home_index_path(default_graph_uri: default_graph_uri, query: query), notice: message}
-	      format.json {render json: @solutions}
-	    end
+				respond_to do |format|
+				format.html {redirect_to home_index_path(default_graph_uri: default_graph_uri, query: query), notice: message}
+				format.json {render json: @solutions}
+			end
 		end
 
   end
