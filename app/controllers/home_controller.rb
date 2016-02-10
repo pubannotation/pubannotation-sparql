@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 		@default_graph_uri = params["default-graph-uri"]
 		@query						 = params["query"]
 
-		unless @query.present?
+		if @query.nil?
 			default_query = Query.find_by_priority(1)
 			@default_graph_uri = default_query.graph
 			@query             = default_query.sparql

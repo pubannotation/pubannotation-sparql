@@ -8,7 +8,7 @@
 		<br/>
 		<div>
 			SPARQL:
-			<textarea id="query" name="query" maxlength="1200" required="required"><%= default_query -%></textarea>
+			<textarea id="query" name="query" maxlength="1200" required="required"><%= @query -%></textarea>
 		</div>
 		<div style="margin:5px">
 			<table class="center options">
@@ -25,7 +25,7 @@
 								<td>
 									<input type="radio" name="actionsel" id="sel-textae" onclick="set_path_to_textae()"/>
 									<label for="sel-textae" title="It shows the minimal spans containing the solutions.">TextAE</label>
-									<ul>
+									<ul style="margin: 0">
 										<li><label for="sel-textae">context size: <input type="text" name="context_size" size="3" value="20" /></label></li>
 										<ul>
 											<li>
@@ -38,8 +38,7 @@
 											<% @projects.each_with_index do |p, i| %>
 												<li>
 													<% if i == 0 %>
-														<%= check_box_tag("project-" + p, 1, true, disabled: true) %>
-														<%= check_box_tag("project-" + p, 1, true, hidden: true) %>
+														<%= check_box_tag("project-" + p, 1, true) %>
 													<% else %>
 														<%= check_box_tag("project-" + p) %>
 													<% end %>
@@ -58,7 +57,7 @@
 		<input type="submit" name="submit" value="submit" style="height: 30px; width: 100%" />
 	</form>
 	<div id="comment">
-		<%= default_comment.html_safe %>
+		<%= @comment.html_safe if @comment %>
 	</div>
 </fieldset>
 
@@ -87,8 +86,8 @@
 
 <fieldset class="panel">
 	<legend>TAO schema</legend>
-<p>Text Annotation Ontology (TAO) schema represetns relationship among text spans and their denoted entities.</p>
-<img src="/assets/tao-schema.png" style="float:left; width:150px; vertical-align:text-top" />
+<p style="margin: 0">Text Annotation Ontology (TAO) represents relationship among text spans and their denoted entities.</p>
+<img src="/assets/tao-schema.png" style="float:left; width:150px; vertical-align:text-top; margin: 4px" />
 <pre style="display:inline-block; vertical-align:text-top">
 s1 a tao:Text_span .
 s2 a tao:Text_span .
