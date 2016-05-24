@@ -5,7 +5,8 @@ class SolutionsController < ApplicationController
 		@query						 = params["query"]
 
     begin
-			@projects = params.keys.select{|p| p.start_with?("project-")}.map{|p| p[8..-1]}
+			# @projects = params.keys.select{|p| p.start_with?("project-")}.map{|p| p[8..-1]}
+			@projects = ['bionlp-st-ge-2016-reference', 'bionlp-st-ge-2016-test']
 			raise "At least one annotation project has to be selected." if @projects.blank?
 
 	    endpoint = SPARQL::Client.new(@ep_url)

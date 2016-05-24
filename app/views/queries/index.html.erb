@@ -1,27 +1,21 @@
 <h1>Query examples</h1>
 
-<table>
+<table class="queries">
   <tr>
-    <th>No.</th>
-    <th style="width:150px">Title</th>
-    <th>Sparql</th>
-    <th>Graph</th>
-    <th>Comment</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="serial">No.</th>
+    <th class="description">Title</th>
+    <th class="control">C</th>
   </tr>
 
 <% @queries.each do |query| %>
   <tr>
     <td><%= query.priority %></td>
     <td><%= raw query.title %></td>
-    <td><pre><%= query.sparql %></pre></td>
-    <td><%= query.graph %></td>
-    <td><%= query.comment %></td>
-    <td><%= link_to 'Show', query %></td>
-    <td><%= link_to 'Edit', edit_query_path(query) %></td>
-    <td><%= link_to 'Destroy', query, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+        <%= link_to 'Show', query %>
+        <%= link_to 'Edit', edit_query_path(query) %>
+        <%= link_to 'Destroy', query, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
   </tr>
 <% end %>
 </table>

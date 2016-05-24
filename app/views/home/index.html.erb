@@ -1,11 +1,15 @@
 <fieldset class="main-panel">
 	<legend>Search</legend>
 	<form id="queryform" name="sparql" method="get" action="<%= @ep_url %>">
-		<div>
-			Default Graph IRI:<br/>
-			<input id="graph" type="text" name="default-graph-uri" size="60" />
-		</div>
-		<br/>
+	<!-- <form id="queryform" name="sparql" method="get" action="/"> -->
+			<div>
+				Template:
+				<% if @title %>
+					<span id = 'template'>
+						<%= query_template(@title) %>
+					</span>
+				<% end %>
+			</div><br/>
 		<div>
 			SPARQL:
 			<textarea id="query" name="query" maxlength="1200" required="required"><%= @query -%></textarea>
@@ -25,47 +29,41 @@
 								<td>
 									<input type="radio" name="actionsel" id="sel-textae" onclick="set_path_to_textae()"/>
 									<label for="sel-textae" title="It shows the minimal spans containing the solutions.">TextAE</label>
-									<ul style="margin: 0">
-										<li><label for="sel-textae">context size: <input type="text" name="context_size" size="3" value="35" /></label></li>
-										<ul>
-											<li>
-												<%= check_box_tag("with annotation", 1, true) %>
-												<%= label_tag("with annotation") %>
-											</li>
-										</ul>
-										<li><label for="sel-textae">annotations to show</label></li>
-										<ul>
-											<% @projects.each_with_index do |p, i| %>
-												<li>
-													<% if i == 0 %>
-														<%= check_box_tag("project-" + p, 1, true) %>
-													<% else %>
-														<%= check_box_tag("project-" + p) %>
-													<% end %>
-													<%= label_tag("project-" + p) %>
-												</li>
-											<% end %>
-										</ul>
-									</ul>
+									(<label for="sel-textae">context size: <input type="text" name="context_size" size="3" value="35" /></label>)
 								</td>
 							</tr>
 						</table>
 					</td>
+					<td>
+						<input type="submit" name="submit" value="submit" style="height: 60px; width: 60px" />
+					</td>
 				</tr>
 			</table>
 		</div>
-		<input type="submit" name="submit" value="submit" style="height: 30px; width: 100%" />
 	</form>
-	<div id="comment">
-		<%= @comment.html_safe if @comment %>
-	</div>
+	<% if @comment.present? %>
+		<div id="comment">
+			<%= @comment.html_safe %>
+		</div>
+	<% end %>
 </fieldset>
 
 <!-- codemirror scripts -->
-<script>
+<script type="text/javascript">
 	var sparqlMirror = CodeMirror.fromTextArea(document.getElementById("query"), {
 		lineNumbers: true,
 		mode: "sparql"
+	});
+
+	$('#template input').change(function() {
+		console.log($('#template input').attr('id'));
+		var query = $('#query').val()
+		$('#template input').each(function(index, element){
+			var id = $(this).attr('id');
+			var val = $(this).val();
+			if (val) {query = query.replace(id, val)}
+		});
+		sparqlMirror.getDoc().setValue(query);
 	});
 
 	function set_path_to_ep() {
@@ -73,7 +71,7 @@
 	}
 
 	function set_path_to_textae() {
-		document.getElementById('queryform').action = "<%= @path_prefix %>/solutions/index"
+		document.getElementById('queryform').action = "<%= @path_prefix %>/"
 	}
 
 	function setquery(query) {
@@ -85,47 +83,54 @@
 </script>
 
 <fieldset class="panel">
-	<legend>TAO schema</legend>
-<p style="margin: 0">Text Annotation Ontology (TAO) represents relationship among text spans and their denoted entities.</p>
-<img src="/assets/tao-schema.png" style="float:left; width:150px; vertical-align:text-top; margin: 4px" />
-<pre style="display:inline-block; vertical-align:text-top">
-s1 a tao:Text_span .
-s2 a tao:Text_span .
-s3 a tao:Text_span .
-e1 a tao:Context_entity .
-e2 a tao:Context_entity .
-s1 tao:has_text "sample" .
-s2 tao:has_text "text" .
-</pre>
-<pre style="display:inline-block; vertical-align:text-top">
-e1 tao:denoted_by s1 .
-e2 tao:denoted_by s2 .
-s2 tao:follows s1 .
-s1 tao:followed_by s2 .
-s3 tao:contains s1 .
-s3 tao:contains s2 .
-s1 tao:contained_by s3 .
-s2 tao:contained_by s3 .
-</pre>
-</fieldset>
-
-<fieldset class="panel">
-	<legend>Prefixes</legend>
-<pre>
-<%= @prefixes.map{|p| "PREFIX #{p[:prefix]}:<#{p[:uri]}>"}.join("\n") %>
-</pre>
-</fieldset>
-
-<fieldset class="panel">
-	<legend>Graphs</legend>
-<pre>
-<%= @graphs.map{|g| '<' + g + '>'}.join("\n") %>
-</pre>
-</fieldset>
-
-<fieldset class="panel">
 	<legend>Example queries</legend>
-	<%= render :partial => "queries/list" %>
+	<dev class="query-list">
+		<%= render :partial => "queries/list" %>
+	</dev>
 </fieldset>
 
 <div style="clear:both"/>
+
+<% if @solutions %>
+	<div class = "solutions">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+		<script src="http://textae.pubannotation.org/vender/jquery.jsPlumb-1.5.2-min.js"></script>
+		<script src="http://textae.pubannotation.org/lib/textae.min.js"></script>
+		<link rel="stylesheet" href="http://textae.pubannotation.org/lib/css/textae.min.css" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<!-- -->
+
+		<h1>Solution spans rendered in <a href="http://textae.pubannotation.org">TextAE</a></h1>
+		<% span_annotations_urls = solutions2span_annotations_urls(@solutions, @projects, @extension_size, @context_size) %>
+		<% if span_annotations_urls.empty? %>
+			<div class="message">
+			This view renders the maximum spans involved in the solutions.<br/>
+			However, the solutions to the input query do not involve a span specification.<br/>
+			Go back and try the <i>binding view</i>.
+			</div>
+		<% else %>
+			<% span_annotations_urls.each do |span_url, span_annotations_url| %>
+				<%=
+					if params[:mode] == "edit"
+						content_tag(:div, "",
+									class: "textae-editor",
+									target: span_annotations_url,
+									mode: "edit",
+									status_bar: "on")
+					else
+						content_tag(:div, "",
+									class: "textae-editor",
+									target: span_annotations_url,
+									status_bar: "on")
+					end
+				%>
+				<%= link_to ">PubAnnotation", span_url, class: "button" %>
+				<%= tag :hr %>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
